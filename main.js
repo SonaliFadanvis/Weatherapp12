@@ -13,7 +13,7 @@ const searchButton =document.getElementById("search-button");
       const searchInput =document.getElementById("search-input").value;
       console.log(searchInput);
         
-         const api ="http://api.openweathermap.org/data/2.5/weather?q="+searchInput+"&appid=54f9ffa09163872cb51316458c7c0e32"
+         const api ="https://api.openweathermap.org/data/2.5/weather?q="+searchInput+"&appid=54f9ffa09163872cb51316458c7c0e32"
 
      fetch(api).then((response) =>{
       console.log("sonali" +response.json()); 
