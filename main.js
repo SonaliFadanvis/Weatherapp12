@@ -39,7 +39,7 @@ const searchButton =document.getElementById("search-button");
     function getresult() {
       var city = document.getElementById("search-input").value;
       var url =
-        "http://api.weatherapi.com/v1/current.json?key=d404d3fe4605434c9dc181853220709&q=" +
+        "https://api.weatherapi.com/v1/current.json?key=d404d3fe4605434c9dc181853220709&q=" +
         city +
         "&aqi=no";
       var result = httpGet(url);
