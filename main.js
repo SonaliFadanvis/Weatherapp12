@@ -38,22 +38,39 @@ const searchButton =document.getElementById("search-button");
 
     function getresult() {
       var city = document.getElementById("search-input").value;
-      var url =
-        "https://api.weatherapi.com/v1/current.json?key=d404d3fe4605434c9dc181853220709&q=" +
-        city +
-        "&aqi=no";
+      var coord = getCoord(city);
+      console.log(coord);
+      var url = "https://api.openweathermap.org/data/2.5/weather?lat="+coord[0]+"&lon="+coord[1]+"&appid=1b697c30bd850371dd8c7c0ba2669f8a";
       var result = httpGet(url);
-   
-      console.log(result["current"]);
-      var name = result.location.name;
+      console.log(result);
+      var name = city;
       loc.textContent=name;
-      climate.textContent=result.current.condition.text;
-      tempvalue.textContent= result.current.temp_c;
-      tempicon.src= result.current.condition.icon;
+      climate.textContent=result.weather[0].main;
+      tempvalue.textContent= (result.main.temp - 273.15).toFixed(2);
+      // tempicon.src= result.current.condition.icon;
     }
+
     function httpGet(theUrl) {
       var xmlHttp = new XMLHttpRequest();
       xmlHttp.open("GET", theUrl, false); // false for synchronous request
       xmlHttp.send(null);
       return JSON.parse(xmlHttp.responseText);
+    }
+
+    function httpGet2(theUrl) {
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.open("GET", theUrl, false); // false for synchronous request
+      xmlHttp.send(null);
+      var result = xmlHttp.responseText;
+      result = result.slice(1,result.length-1);
+      return JSON.parse(result);
+    }
+
+    function getCoord(city)
+    {
+      var url = "https://api.openweathermap.org/geo/1.0/direct?q="+city+"&appid=1b697c30bd850371dd8c7c0ba2669f8a";
+      var result = httpGet2(url);
+      console.log(result.lat,result.lon)
+      var coord = [result.lat, result.lon];
+      return coord;
     }
